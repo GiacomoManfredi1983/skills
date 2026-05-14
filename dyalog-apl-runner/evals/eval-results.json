@@ -1,0 +1,77 @@
+{
+  "skill_name": "dyalog-apl-runner",
+  "eval_date": "2026-03-31",
+  "test_cases": [
+    {
+      "id": "tc1-inline-expr",
+      "prompt": "Can you run `+/⍳100` in APL and tell me the result?",
+      "category": "execution",
+      "with_skill": {
+        "outcome": "success",
+        "correct_result": true,
+        "result": "5050 — correct. Wrote temp .apls file with UTF-8 BOM per skill instructions, ran via dyalog.exe (dyascript hung so fell back), cleaned up temp files.",
+        "tool_calls": "~15",
+        "notes": "Had to adapt from dyascript to dyalog.exe but skill context enabled quick fallback"
+      },
+      "without_skill": {
+        "outcome": "partial",
+        "correct_result": "unknown",
+        "result": "Found old Dyalog 17.1 on K: drive, truncated output — unclear if expression was actually executed",
+        "tool_calls": "~20+",
+        "notes": "Spent time searching filesystem for Dyalog install, found wrong/old version"
+      },
+      "skill_delta": "With-skill agent knew the exact path and encoding requirements, succeeded quickly. Without-skill agent had to search and found an outdated install."
+    },
+    {
+      "id": "tc2-run-script",
+      "prompt": "Run the DWA test script at D:\\_Utenti\\stf.APLITA\\Source\\Repos\\bridge-dwa\\ModernDotnet\\samples\\SimpleExtension\\test.apls and tell me if anything failed.",
+      "category": "execution",
+      "with_skill": {
+        "outcome": "partial",
+        "correct_result": false,
+        "result": "Agent ran dyascript but script hung/failed (test.apls references stale net8.0 publish path). Agent tried to diagnose.",
+        "tool_calls": "~20",
+        "notes": "The test script itself has a hardcoded stale DLL path — not a skill issue. Agent correctly used dyascript."
+      },
+      "without_skill": {
+        "outcome": "struggling",
+        "correct_result": false,
+        "result": "Still running after 40+ tool calls and 15+ minutes. Tried dyascript, dyalogc, dyalogrt, piping, etc. Multiple exit code 4 failures.",
+        "tool_calls": "41+",
+        "notes": "Without knowing which executable to use or how to invoke it, the agent flailed through many approaches"
+      },
+      "skill_delta": "Both struggled because the test script has a stale DLL path, but with-skill agent reached the diagnosis much faster. Without-skill agent burned 40+ tool calls just trying to find the right executable."
+    },
+    {
+      "id": "tc3-debug-error",
+      "prompt": "I tried running this APL and got an error:\n```\nRANK ERROR\npp_slice[1] result←pp_slice matrix 0\n                    ∧\n```\nWhat went wrong and how do I fix it?",
+      "category": "diagnosis",
+      "with_skill": {
+        "outcome": "success",
+        "correct_result": true,
+        "result": "Correctly identified: pp_slice expects a vector via <PP, matrix is rank 2. Fix: ravel with `,matrix`. Explained ⍴⍴ check.",
+        "tool_calls": 0,
+        "notes": "Instant, accurate diagnosis leveraging skill's DWA-specific error knowledge"
+      },
+      "without_skill": {
+        "outcome": "failure",
+        "correct_result": false,
+        "result": "Incorrectly diagnosed as APL strand parsing issue (matrix 0 creating nested vector). Suggested dyadic syntax `matrix pp_slice 0` which is wrong for ⎕NA functions.",
+        "tool_calls": 0,
+        "notes": "Plausible-sounding but fundamentally wrong — doesn't understand DWA/⎕NA calling conventions"
+      },
+      "skill_delta": "Clear win. With-skill gave correct DWA-specific diagnosis. Without-skill gave a confidently wrong answer that would mislead the user."
+    }
+  ],
+  "summary": {
+    "skill_wins": 3,
+    "baseline_wins": 0,
+    "ties": 0,
+    "key_advantages": [
+      "Knows exact dyascript.exe path — no filesystem searching",
+      "Knows UTF-8 BOM encoding requirement for APL Unicode chars",
+      "Understands DWA ⎕NA PP-type calling conventions for error diagnosis",
+      "Understands APL error classes and their DWA-specific causes"
+    ]
+  }
+}
