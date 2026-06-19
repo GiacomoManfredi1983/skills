@@ -9,7 +9,7 @@ Drive a persistent Dyalog APL interpreter through the RIDE protocol. Unlike `dya
 
 ## Documentation
 
-**IMPORTANT**: Full Dyalog APL documentation is at `d:\devel\dyalog_documentation\`. Before guessing about APL syntax, system functions (⎕-names), system commands (), operators, or configuration — spend a minute browsing the docs. Key subdirectories:
+**IMPORTANT**: Full Dyalog APL documentation is at `C:\Users\gmmd\source\documentation\`. Before guessing about APL syntax, system functions (⎕-names), system commands (), operators, or configuration — spend a minute browsing the docs. Key subdirectories:
 
 - `language-reference-guide/` — all primitive functions, operators, system functions, system commands
 - `programming-reference-guide/` — namespaces, classes, interfaces, threads, error handling
@@ -20,17 +20,17 @@ Do not hallucinate system function names or syntax. Look them up.
 
 ## Environment
 
-- **Interpreter**: `D:\devel\dyalog\20.0\dyalog.exe` (Version 20.0, 64-bit Unicode)
-- **RIDE client script**: `C:\Users\stf\.copilot\skills\dyalog-ride\scripts\ride-client.mjs`
+- **Interpreter**: `C:\Program Files\Dyalog\Dyalog APL-64 20.0 Unicode\dyalog.exe` (Version 20.0, 64-bit Unicode)
+- **RIDE client script**: `C:\Users\gmmd\.copilot\skills\dyalog-ride\scripts\ride-client.mjs`
 - **Default port**: 4502 (localhost)
-- **State file**: `C:\Users\stf\.copilot\skills\dyalog-ride\scripts\ride-state.json`
+- **State file**: `C:\Users\gmmd\.copilot\skills\dyalog-ride\scripts\ride-state.json`
 
 ## Commands
 
 All commands are run via Node.js:
 
 ```powershell
-node "C:\Users\stf\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" <verb> [options]
+node "C:\Users\gmmd\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" <verb> [options]
 ```
 
 ### Verbs
@@ -57,25 +57,25 @@ node "C:\Users\stf\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" <verb> [
 
 ```powershell
 # Start a fresh interpreter
-node "C:\Users\stf\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" start --port 4502
+node "C:\Users\gmmd\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" start --port 4502
 
 # Check it's running
-node "C:\Users\stf\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" status
+node "C:\Users\gmmd\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" status
 
 # Execute APL (inline)
-node "C:\Users\stf\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" execute "⎕←+/⍳10"
+node "C:\Users\gmmd\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" execute "⎕←+/⍳10"
 
 # Execute APL from file (for complex/multi-line code)
-node "C:\Users\stf\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" execute --file "$env:TEMP\mycode.apls"
+node "C:\Users\gmmd\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" execute --file "$env:TEMP\mycode.apls"
 
 # Check SI stack (is interpreter stuck in an error?)
-node "C:\Users\stf\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" getsistack
+node "C:\Users\gmmd\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" getsistack
 
 # Get session log (see history after reconnecting)
-node "C:\Users\stf\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" getlog
+node "C:\Users\gmmd\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" getlog
 
 # Stop the interpreter
-node "C:\Users\stf\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" stop
+node "C:\Users\gmmd\.copilot\skills\dyalog-ride\scripts\ride-client.mjs" stop
 ```
 
 ## Output Format
