@@ -12,7 +12,7 @@ Execute Dyalog APL scripts and expressions, and diagnose APL errors.
 The Dyalog APL script runner is at:
 
 ```
-d:\devel\dyalog\20.0\scriptbin\dyalogscript.ps1
+"C:\Program Files\Dyalog\Dyalog APL-64 20.0 Unicode\scriptbin\dyalogscript.ps1"
 ```
 
 This is `dyascript` (Dyalog Script), a non-interactive runner for `.apls` files. It provides a full APL environment without the GUI session.
@@ -24,7 +24,7 @@ This is `dyascript` (Dyalog Script), a non-interactive runner for `.apls` files.
 To run an existing `.apls` file:
 
 ```powershell
-& d:\devel\dyalog\20.0\scriptbin\dyalogscript.ps1 path\to\script.apls
+& "C:\Program Files\Dyalog\Dyalog APL-64 20.0 Unicode\scriptbin\dyalogscript.ps1" path\to\script.apls
 ```
 
 Scripts use the shebang `#!/usr/local/bin/dyalogscript` by convention but this isn't required on Windows.
@@ -35,7 +35,7 @@ Scripts use the shebang `#!/usr/local/bin/dyalogscript` by convention but this i
 
 ```powershell
 # Fallback: run script via cmd.exe stdin redirect (preserves Unicode correctly)
-cmd.exe /c "`"D:\devel\dyalog\20.0\dyalog.exe`" lx=`"⍎⊃⎕NGET 'path\to\script.apls' 1`""
+cmd.exe /c "`"C:\Program Files\Dyalog\Dyalog APL-64 20.0 Unicode\dyalog.exe`" lx=`"⍎⊃⎕NGET 'path\to\script.apls' 1`""
 ```
 
 Always run dyascript with a timeout (e.g., `Start-Process` with `-Wait` and a timer, or use async mode with `initial_wait`). If it doesn't produce output within 10 seconds, assume it's hung.
@@ -51,7 +51,7 @@ $expr = @"
 ⎕←+/⍳10
 "@
 [System.IO.File]::WriteAllText("$env:TEMP\apl_expr.apls", $expr, [System.Text.UTF8Encoding]::new($true))
-& "d:\devel\dyalog\20.0\scriptbin\dyalogscript.ps1" "$env:TEMP\apl_expr.apls"
+& "C:\Program Files\Dyalog\Dyalog APL-64 20.0 Unicode\scriptbin\dyalogscript.ps1" "$env:TEMP\apl_expr.apls"
 ```
 
 2. Clean up the temp file afterward.
