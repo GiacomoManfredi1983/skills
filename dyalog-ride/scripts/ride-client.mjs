@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const STATE_FILE = path.join(__dirname, 'ride-state.json');
-const DYALOG_EXE = 'D:\\devel\\dyalog\\20.0\\dyalog.exe';
+const DYALOG_EXE = 'C:\\Program Files\\Dyalog\\Dyalog APL-64 20.0 Unicode\\dyalog.exe';
 
 // --- Argument parsing ---
 const args = process.argv.slice(2);
